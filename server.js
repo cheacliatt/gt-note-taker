@@ -29,7 +29,7 @@ app.get("/api/notes", (req, res) => {
     res.json(db);
 });
 
-// Post route to add notes
+// Adding new notes using .post
 app.post("/api/notes", (req, res) => {
   fs.readFile("./db/db.json", (err, data) => {
     if (err) {
@@ -51,6 +51,30 @@ app.post("/api/notes", (req, res) => {
     });
   });
 });
+
+
+//Deleting notes using .delete, looking at note id's
+app.delete("/api/notes/:id", function (req, res) {
+  fs.readFile("./db/db.json", (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    db = JSON.parse(data);
+    // It is essentially the same as posting a new note, except we are filtering through the given id added by posting a note
+    const newDB = db.filter((note) => note.id != parseInt(req.params.id));
+    console.log(newDB);
+    fs.writeFile("./db/db.json", JSON.stringify(newDB), (err) => {
+      if (err) {
+        console.log(err);
+      }
+      res.json(newDB);
+    });
+  });
+});
+
+
+
+
 // Catchall to return to the main index.html
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
