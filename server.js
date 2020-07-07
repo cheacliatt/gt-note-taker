@@ -24,28 +24,32 @@ app.get("/notes", (req, res) => {
 
 // API / JSON
 
-app.get("/api/notes", function (req, res) {
+app.get("/api/notes", (req, res) => {
     res.json(db);
 });
 
-app.post("/api/notes", function (req, res) {
-  fs.readFile("./db/db.json", function (err, data) {
+app.post("/api/notes", (req, res) => {
+  fs.readFile("./db/db.json", (err, data) => {
     if (err) {
       console.log(err);
-    }
+    };
+
+ 
 
 
     db = JSON.parse(data);
-    const newNote = { ...req.body, id: db.length };
+    const newNote = { ...req.body, id: db.length + 1 };
     console.log(newNote);
     db.push(newNote);
 
-    fs.writeFile("./db/db.json", JSON.stringify(db), function (err) {
+    fs.writeFile("./db/db.json", JSON.stringify(db), (err) => {
       if (err) {
         console.log(err);
       }
       res.json(db);
     });
+
+       // forEach ((obj, i)) obj.id === i++
 
 
 
