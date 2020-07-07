@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+// This method looks into the public folder and makes the files inside run with express.
 
 // View / HTML
 app.get("/", (req, res) => {
@@ -28,34 +29,29 @@ app.get("/api/notes", (req, res) => {
     res.json(db);
 });
 
+// Post route to add notes
 app.post("/api/notes", (req, res) => {
   fs.readFile("./db/db.json", (err, data) => {
     if (err) {
       console.log(err);
     };
-
- 
-
-
+    // Parsing the data read in db.json
     db = JSON.parse(data);
+    // Adding an id to each note based off its index postion. The +1 is necessary, because an id cannot be null
     const newNote = { ...req.body, id: db.length + 1 };
     console.log(newNote);
+    // Pushing the new note into the db.json
     db.push(newNote);
-
+    // Writing the note on the page itself
     fs.writeFile("./db/db.json", JSON.stringify(db), (err) => {
       if (err) {
         console.log(err);
       }
       res.json(db);
     });
-
-       // forEach ((obj, i)) obj.id === i++
-
-
-
   });
 });
-
+// Catchall to return to the main index.html
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
