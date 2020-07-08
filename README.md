@@ -24,10 +24,10 @@ This code can be forked and cloned onto one's local device through GitHub. Pleas
 The primary usage of this code is to create and save notes for personal use.
 
 ## Links
-[GitHub repository](https://github.com/cheacliatt/gt-weather-dashboard "Repository")
+[GitHub repository](https://github.com/cheacliatt/gt-note-taker "Repository")
 
 
-[Heroku Server](https://gt-note-taker.herokuapp.com/ "Heroku")
+[Heroku Server](https://note-taker-ccliatt.herokuapp.com/ "Heroku")
 
 
 ## License
